@@ -24,7 +24,7 @@ st.title("Tacrolimus Plasma Concentration Predictor")
 # 3. 定义输入变量
 # ===============================
 continuous_columns = ['Total_daily_dose','BUN','BMI','ALB','NE','CCR','IBIL','TBIL','Dosing_time']  #分类变量
-columns_to_copy = ['CYP3A5']  # 分类变量
+categorical_columns = ['CYP3A5']  # 分类变量
 
 # 在 Streamlit 界面上创建输入框
 st.sidebar.header("Please enter the patient's details")
@@ -106,3 +106,4 @@ st.markdown("""
 - ±20% denotes an empirical confidence interval.
 - SHAP values indicate the magnitude and direction of feature effects.
 """)
+
