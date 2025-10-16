@@ -80,11 +80,14 @@ try:
     df_train = pd.read_csv('train.csv', encoding='utf-8')
     X_train = df_train[continuous_columns + categorical_columns]
     X_train_scaled = scaler.transform(X_train[continuous_columns])
-    X_train_final = np.hstack([X_train_scaled, X_train[categorical_columns].values])
-    display_names = ['Total daily dose','BUN','BMI','ALB','NE#','CCR','IBIL','TBIL','Dosing time','CYP3A5']
+    X_train_scaled_df = pd.DataFrame(X_train_scaled, columns=continuous_columns)
+    X_train_final_df = pd.concat([X_train_scaled_df, X_train[categorical_columns].reset_index(drop=True)], axis=1)
+    input_scaled_df = pd.DataFrame(input_scaled, columns=continuous_columns)
+    feature_names = ['Total daily dose','BUN','BMI','ALB','NE#','CCR','IBIL','TBIL','Dosing time','CYP3A5']
+    final_input_df = pd.DataFrame(final_input, columns=feature_names)
 
-    explainer = shap.Explainer(model.predict, X_train_final)
-    shap_values = explainer(final_input)
+    explainer = shap.Explainer(model.predict, X_train_final_df)
+    shap_values = explainer(final_input_df)
 
     plt.figure(figsize=(8, 6))
     shap.plots.waterfall(shap_values[0], show=False)
@@ -106,4 +109,5 @@ st.markdown("""
 - ±20% denotes an empirical confidence interval.
 - SHAP values indicate the magnitude and direction of feature effects.
 """)
+
 
