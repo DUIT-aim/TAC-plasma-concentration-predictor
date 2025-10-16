@@ -105,9 +105,10 @@ except Exception as e:
 st.markdown("---")
 st.markdown("💡 **Note:**")
 st.markdown("""
-- The model predicts continuous plasma concentration (ng/mL).
-- ±20% denotes an empirical confidence interval.
-- SHAP values indicate the magnitude and direction of feature effects.
+-This model is a continuous prediction, outputting plasma concentration (ng/mL).
+- '±20%' denotes an empirical confidence interval, within which actual plasma drug concentrations are considered reasonable.
+- SHAP values can be used to observe the direction and magnitude of the influence of features on individual predictions.
 """)
+
 
 
